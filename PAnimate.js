@@ -3,7 +3,6 @@ class PAnimate {
     this.container = container
     this.poem = poem
 
-
     const p = poem.map((p, pIndex) => `<p>${p.split('').map((t, textIndex) => `<span class="text-item" style="${this.setItemStyles()}" id="text-${pIndex}-${textIndex}">${t}</span>`).join('')}</p>`).join('')
 
     container.innerHTML = p
@@ -39,7 +38,6 @@ class PAnimate {
       textNum = numOrRandom ? this.random(4, 1) : 1
     }
 
-    // const timeout = typeof numOrRandom === 'boolean' ? this.random(1000,2000) : 1 * 1000
     const timeout = 1.5 * 1000
     this.shuffleArr.forEach((id, index) => {
       if (index < textNum) {
@@ -60,7 +58,7 @@ class PAnimate {
     const styles = {
       transform: `translateY(-${this.random(50, 150)}px)`,
       opacity: 0,
-      transition: `all ${this.random(1, 3, true)}s`,
+      transition: `all ${this.random(1, 4, true)}s`,
       display:'inline-block'
     }
     return Object.entries(styles).map(v => `${v.join(':')};`).join('')
