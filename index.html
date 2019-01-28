@@ -15,10 +15,12 @@
 <script src="./PAnimate.js"></script>
 <script>
   const container = document.querySelector('.container')
-  const poem = ['花气薰人欲破禅', '心情其实过中年', '春来诗思何所似', '八节滩头上水船']
+  const poem = ['花氣薰人欲破禪', '心情其實過中年', '春來詩思何所似', '八節灘頭上水船']
 
   const PA = new PAnimate(container,poem)
-  PA.animate(true)
+  setTimeout(function () {
+    PA.animate(true)
+  },1)
 
 </script>
 </html>

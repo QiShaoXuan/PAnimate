@@ -40,29 +40,5 @@ body{
   color:#333;
   text-align: center;
   writing-mode: vertical-rl;
-}
-.container .text-item{
-  display: inline-block;
-  opacity: 0;
-}
-
-.text-animate{
-
-  animation:text-animate 1s linear;
-  animation-fill-mode:forwards;
-}
-
-@keyframes text-animate {
-  0%{
-    transform: translateY(-120px);
-    opacity:0;
-  }
-  50%{
-    transform: translateY(-60px);
-    opacity:50;
-  }
-  100%{
-    transform: translateY(0px);
-    opacity:1;
-  }
+  font-family: SimSun;
 }
