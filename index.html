@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>paragraph animate</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<div class="paper"></div>
+<div class="container"></div>
+</body>
+<script src="./PAnimate.js"></script>
+<script>
+  const container = document.querySelector('.container')
+  const poem = ['花气薰人欲破禅', '心情其实过中年', '春来诗思何所似', '八节滩头上水船']
+
+  const PA = new PAnimate(container,poem)
+  PA.animate(true)
+
+</script>
+</html>
