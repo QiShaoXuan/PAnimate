@@ -1,18 +1,18 @@
 class PAnimate {
-  constructor(container, poem) {
+  constructor(container, poem = '', params = {}) {
     this.container = container
     this.poem = poem
+    this.htmlPoem = this.setHtml()
+    this.shuffleQueue = []
 
-    const p = poem.map((p, pIndex) => `<p>${p.split('').map((t, textIndex) => `<span class="text-item" style="${this.setItemStyles()}" id="text-${pIndex}-${textIndex}">${t}</span>`).join('')}</p>`).join('')
-
-    container.innerHTML = p
+    container.innerHTML = this.htmlPoem
     this.getArr()
   }
 
   getArr() {
-    this.shuffleArr = [].map.call(this.container.querySelectorAll('span'), (dom) => dom.getAttribute('id'))
+    this.shuffleQueue = [].map.call(this.container.querySelectorAll('span'), (dom) => dom.getAttribute('id'))
 
-    this.shuffleArr = this.shuffle(this.shuffleArr)
+    this.shuffleQueue = this.shuffle(this.shuffleQueue)
   }
 
   shuffle(arr) {
@@ -30,16 +30,20 @@ class PAnimate {
     return array
   }
 
-  animate(numOrRandom = 1) {
-    if (this.shuffleArr.length === 0) return
+  animate(numOrRandom = 1, timeout = 1500) {
+    if (this.shuffleQueue.length === 0) return
 
     let textNum = numOrRandom
+
     if (typeof numOrRandom === 'boolean') {
       textNum = numOrRandom ? this.random(4, 1) : 1
     }
 
-    const timeout = 1.5 * 1000
-    this.shuffleArr.forEach((id, index) => {
+    if (Array.isArray(numOrRandom)) {
+      textNum = this.random(numOrRandom[0], numOrRandom[1])
+    }
+
+    this.shuffleQueue.forEach((id, index) => {
       if (index < textNum) {
         let dom = this.container.querySelector(`#${id}`)
         dom.style.transform = 'translateY(0px)'
@@ -47,11 +51,15 @@ class PAnimate {
       }
     })
 
-    this.shuffleArr.splice(0, textNum)
+    this.shuffleQueue.splice(0, textNum)
 
     setTimeout(() => {
-      this.animate(numOrRandom)
+      this.animate(numOrRandom, timeout)
     }, timeout)
+  }
+
+  setHtml() {
+    return this.poem.map((p, pIndex) => `<p>${p.split('').map((t, textIndex) => `<span class="text-item" style="${this.setItemStyles()}" id="text-${pIndex}-${textIndex}">${t}</span>`).join('')}</p>`).join('')
   }
 
   setItemStyles() {
@@ -59,7 +67,7 @@ class PAnimate {
       transform: `translateY(-${this.random(50, 150)}px)`,
       opacity: 0,
       transition: `all ${this.random(1, 4, true)}s`,
-      display:'inline-block'
+      display: 'inline-block'
     }
     return Object.entries(styles).map(v => `${v.join(':')};`).join('')
   }
